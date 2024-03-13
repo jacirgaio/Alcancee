@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "423499357004",
+    "project_id": "alcancce-5617a",
+    "storage_bucket": "alcancce-5617a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423499357004:android:cada034a46530c37488de9",
+        "android_client_info": {
+          "package_name": "com.alcancce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw5lCz_mxgpeYh5KXPE79Sho2wVGC89lg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
