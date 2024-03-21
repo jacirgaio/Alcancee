@@ -1,64 +1,43 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { BottomNavigation, Text } from 'react-native-paper';
+
 
 // Importações de telas
-import Home from '../Screen/Home';
-import Reservar from '../Screen/CadastroReserva';
-import Lista from '../Screen/ListaReservas';
-import Contato from '../Screen/Contato';
+import HomeScreen from '../Screen/Home';
+import ReservarScreen from '../Screen/CadastroReserva';
+import ListaScreen from '../Screen/ListaReservas';
+import ContatoScreen from '../Screen/Contato';
 
-const Tab = createBottomTabNavigator();
+
+
+const Home = () => <Text>Home</Text>;
+const Reservar = () => <Text>Reservar Sala</Text>;
+const Lista = () => <Text>Salas Reservadas</Text>;
+const Contato = () => <Text>Contato</Text>;
 
 export default function MyTabs() {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'home', title: 'Home', focusedIcon: 'home-circle', unfocusedIcon: 'home-circle-outline' },
+    { key: 'reservar', title: 'Reservar', focusedIcon: 'store-clock', unfocusedIcon: 'store-clock-outline' },
+    { key: 'lista', title: 'Lista', focusedIcon: 'view-list', unfocusedIcon: 'view-list-outline' },
+    { key: 'contato', title: 'Contato', focusedIcon: 'contacts', unfocusedIcon: 'contacts-outline' },
+  ]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    home: HomeScreen,
+    reservar: ReservarScreen,
+    lista: ListaScreen,
+    contato: ContatoScreen,
+  });
+
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        tabBarActiveTintColor: '#008000',
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Reservar Sala"
-        component={Reservar}
-        options={{
-          tabBarLabel: 'Reservar Sala',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Salas Reservadas"
-        component={Lista}
-        options={{
-          tabBarLabel: 'Reservas',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Contato"
-        component={Contato}
-        options={{
-          tabBarLabel: 'Contato',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" color={color} size={size} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      barStyle={{ backgroundColor: '#97FCA5' }}
+    />
   );
 }
+

@@ -3,11 +3,12 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import { Button, Card } from 'react-native-paper';
 
 export default class Camera extends PureComponent {
   render() {
     return (
-      <View style={styles.container}>
+      <Card.Content style={styles.container}>
         <RNCamera
           ref={(ref) => {
             this.camera = ref;
@@ -16,27 +17,27 @@ export default class Camera extends PureComponent {
           type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.on}
           androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
+            title: 'Permissão para usar a câmera',
+            message: 'Precisamos da sua permissão para usar sua câmera',
+            buttonPositive: 'OK',
+            buttonNegative: 'Cancelar',
           }}
           androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
+            title: 'Permissão para usar a gravação de áudio',
+            message: 'Precisamos da sua permissão para usar seu áudio',
+            buttonPositive: 'OK',
+            buttonNegative: 'Cancelar',
           }}
           onGoogleVisionBarcodesDetected={({ barcodes }) => {
             console.log(barcodes);
           }}
         />
+
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={styles.captureText}> Tirar Foto </Text>
-          </TouchableOpacity>
+          <Button icon="camera" mode="contained-tonal" onPress={this.takePicture.bind(this)} > Capturar </Button>
         </View>
-      </View>
+      </Card.Content>
+
     );
   }
 
@@ -53,29 +54,22 @@ export default class Camera extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
+    flexDirection: 'columm',
+    marginTop: 20,
+    padding: 5
   },
   preview: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     width: 150,
     height: 150,
+    padding: 5
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  capture: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-  },
-  captureText: {
-    fontSize: 14,
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    padding: 5
   },
 });

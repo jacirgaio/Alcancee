@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-import {
-  TouchableOpacity, StyleSheet, Text, View, Image,
-} from 'react-native';
+import {  StyleSheet, View, Image, } from 'react-native';
+import { Surface, Button, Text, } from 'react-native-paper';
+
 
 export default class SalaComponent extends Component {
   render() {
     return (
-      <View style={estilo.container}>
+      <Surface style={estilo.container} elevation={4}>
         <View style={estilo.imagemContainer}>
           <Image
             style={estilo.imagem}
             source={this.props.imagem ? { uri: this.props.imagem } : require('../Imagens/alcance.png')}
           />
         </View>
-        <View style={estilo.lista}>
+        <Surface  elevation={1}>
           <Text style={estilo.textLista}>
             Sala:
+            {' '}
             <Text style={estilo.textConteudo}>{this.props.identificacaoSala}</Text>
           </Text>
           <Text style={estilo.textLista}>
-            {' '}
             Data da Reserva:
+            {' '}
             <Text style={estilo.textConteudo}>
               {' '}
               {new Date(this.props.dataReservaSala).toLocaleDateString('pt-BR')}
             </Text>
           </Text>
           <Text style={estilo.textLista}>
-            {' '}
             Hora da Reserva:
             <Text style={estilo.textConteudo}>
               {' '}
@@ -38,56 +38,37 @@ export default class SalaComponent extends Component {
           </Text>
           <Text style={estilo.textLista}>
             Profissional:
+              {' '}
             <Text style={estilo.textConteudo}>{this.props.profissionalReservaSala}</Text>
           </Text>
+        </Surface>
 
-        </View>
         <Text style={estilo.textListaStatus}>{this.props.status}</Text>
-        <View style={estilo.areaBotoes}>
-          <TouchableOpacity
-            style={[estilo.botoes, { backgroundColor: 'red' }]}
-            onPress={() => this.props.Remover(this.props.id)}
-          >
-            <Text style={estilo.botaoText}>Excluir reserva</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+
+        <Button
+          mode="contained"
+          buttonColor='red'
+          onPress={() => this.props.Remover(this.props.id)}
+        >
+          Excluir Reserva
+        </Button>
+      </Surface>
     );
   }
 }
 const estilo = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    margin: 5,
-    padding: 10,
+    borderRadius: 10,
+    padding: 20,
     backgroundColor: '#fff',
     elevation: 2,
   },
-  botoes: {
-    flex: 1,
-    paddingVertical: 12,
-    margin: 5,
-    borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  botaoText: {
-    fontWeight: 'bold',
-    color: 'white',
-    fontSize: 18,
-  },
-  areaBotoes: {
-    flexDirection: 'row',
-  },
-  lista: {
-    marginBottom: 10,
-  },
+ 
   textLista: {
     color: 'green',
     fontSize: 15,
-    marginVertical: 3,
+    margin: 5,
     fontWeight: 'bold',
   },
   textConteudo: {
@@ -96,12 +77,11 @@ const estilo = StyleSheet.create({
   },
   textListaStatus: {
     color: 'blue',
-    fontSize: 20,
     fontWeight: 'bold',
-    paddingVertical: 10,
+    paddingVertical: 14,
   },
   imagem: {
-    height: 200,
-    width: 200,
+    height: 130,
+    width: 250,
   },
 });

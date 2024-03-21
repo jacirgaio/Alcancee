@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import {
-  TextInput,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
-  Text,
   View,
+  Text,
   KeyboardAvoidingView,
   Alert,
 } from 'react-native';
-
+import { TextInput, Divider, Button } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import SalaModel from '../Models/SalaModel.js';
@@ -106,24 +104,43 @@ export default class CadastroReserva extends Component {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={estilo.scrollContainer} keyboardShouldPersistTaps="handled">
           <View style={estilo.container}>
-            <View style={estilo.componentCadastro}>
-
-              <Text style={estilo.textMenu}>Alcance Clínica Integrada</Text>
-
+            <View  style={estilo.componentCadastro}>
+              <Text variant="titleLarge" style={estilo.textMenu}>Alcance Clínica Integrada</Text>
               <TextInput
-                style={estilo.inputBox}
-                placeholder="Digite a Sala"
+                label="Sala"
+                style={estilo.input}
                 value={this.state.identificacaoSala}
+                mode='outlined'
+                textColor='green'
                 onChangeText={(valor) => {
                   this.setState({ identificacaoSala: valor });
                 }}
               />
-              <TouchableOpacity
-                style={estilo.inputBox}
-                onPress={() => this.setState({ showDatePicker: true, activeInput: 'data' })}
-              >
-                <Text>{dataReservaSala.toLocaleDateString('pt-BR')}</Text>
-              </TouchableOpacity>
+
+              <TextInput
+                label="Profissional"
+                style={estilo.input}
+                mode='outlined'
+                textColor='green'
+                value={this.state.profissionalReservaSala}
+                onChangeText={(valor) => {
+                  this.setState({ profissionalReservaSala: valor });
+                }}
+              />
+
+              <TextInput
+                label="Data de Reserva"
+                style={estilo.input}
+                mode='outlined'
+                textColor='green'
+                value={dataReservaSala.toLocaleDateString('pt-BR')}
+                right={
+                  <TextInput.Icon
+                    icon="calendar"
+                    onPress={() => this.setState({ showDatePicker: true, activeInput: 'data' })}
+                  />
+                }
+              />
               {showDatePicker && activeInput === 'data' && (
                 <DateTimePicker
                   value={dataReservaSala}
@@ -138,16 +155,20 @@ export default class CadastroReserva extends Component {
                   }}
                 />
               )}
-              <TouchableOpacity
-                style={estilo.inputBox}
-                onPress={() => this.setState({ showTimePicker: true, activeInput: 'hora' })}
-              >
-                <Text>
-                  {horaReservaSala.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                  {' '}
-                  h
-                </Text>
-              </TouchableOpacity>
+
+              <TextInput
+                label="Hora de Reserva"
+                style={estilo.input}
+                mode='outlined'
+                textColor='green'
+                value={`${horaReservaSala.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} h`}
+                right={
+                  <TextInput.Icon
+                    icon="clock"
+                    onPress={() => this.setState({ showTimePicker: true, activeInput: 'hora' })}
+                  />
+                }
+              />
               {showTimePicker && activeInput === 'hora' && (
                 <DateTimePicker
                   value={horaReservaSala}
@@ -162,21 +183,18 @@ export default class CadastroReserva extends Component {
                   }}
                 />
               )}
-              <TextInput
-                style={estilo.inputBox}
-                placeholder="Digite o nome do profissional"
-                value={this.state.profissionalReservaSala}
-                onChangeText={(valor) => {
-                  this.setState({ profissionalReservaSala: valor });
-                }}
-              />
               <View style={estilo.cameraContainer}>
                 <Camera onPictureTaken={this.onPictureTaken} />
               </View>
 
-              <TouchableOpacity style={estilo.button} onPress={this.ReservarSala}>
-                <Text style={estilo.buttonText}>Reservar Sala</Text>
-              </TouchableOpacity>
+              <Button
+                mode="contained"
+                buttonColor='green'
+                onPress={this.ReservarSala}
+              >
+                Reservar
+              </Button>
+
             </View>
           </View>
         </ScrollView>
@@ -194,50 +212,23 @@ const estilo = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  componentCadastro: {
-    alignItems: 'center',
-    marginVertical: 20,
-  },
+
   textMenu: {
     color: 'green',
-    fontSize: 26,
     fontWeight: 'bold',
     marginVertical: 20,
-  },
-  inputBox: {
-    shadowColor: '#11803b',
-    shadowOpacity: 0.9,
-    elevation: 0.5,
-    borderWidth: 0.5,
-    borderColor: 'green',
-    fontSize: 14,
-    width: 360,
-    height: 40,
-    marginBottom: 15,
+    fontSize: 20,
+    textAlign: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
   },
-  button: {
-    backgroundColor: 'green',
-    borderRadius: 5,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  dateTimeText: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
+
   cameraContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 30,
-    width: 150,
+    margin: 20,
+  },
+
+  input: {
+    marginBottom: 6,
   },
 });
